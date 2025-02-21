@@ -1,17 +1,12 @@
 
 
-# C# Chess Library
+# Chess Library: Chess960 Addition
 
-This is a C# chess library that provides functionality for playing and managing chess games. It includes classes for chess pieces, board positions, moves, game states, and more. 
+This branch adds Chess960 support to the C# Chess Library
 
 ## Features
 
-- Piece classes for each chess piece, including their moves and captures
-- Board class for managing the state of the chess board
-- Movement class for managing moves made by players
-- Sample console application
-- Sample Windows Forms Application
-- UDP client and server implementations
+- Can choose between Class Chess PvP and Chess960 PvP
 
 ## Getting Started
 
@@ -30,11 +25,12 @@ The console application provides a simple interface for playing between two play
 ### Windows Forms Application
 
 This application provides a more fully-featured interface for demonstrating the chess library in a windows desktop app:
-- Player vs Player: Control both players and test the functionality of a full chess match with reset and undo capabilities
-- Host Server: Host a UDP server on you local machine on a custom port, upon starting the server a client interface is automatically connected to it.
-- Join Server: Join a UDP server by entering a host's IP and port number
+- Classic Chess PvP: Control both players and test the functionality of a full chess match with reset and undo capabilities
+- Chess960 PvP: Control both players and test the functionality of a full chess960 match with reset and undo capabilities
+- Host Server: Host a UDP classic chess server on you local machine on a custom port, upon starting the server a client interface is automatically connected to it.
+- Join Server: Join a UDP classic chess server by entering a host's IP and port number
 
 ## Contributing
 
-If you would like to contribute, feel free to open an issue or pull request on the repository. 
+If you would like to contribute, feel free to open an issue or pull request to the original repository. 
 https://github.com/ruskpr/chess
