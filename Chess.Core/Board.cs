@@ -160,12 +160,15 @@ namespace Chess.Core
                 _tiles[6, j].Piece = new Pawn('w', 6, j); // adds 8 white pawns to 7th row
             }
 
-            _spacesAvailable = generateKingRookCombo(_spacesAvailable);
+			_spacesAvailable = generateBishopsQueenKnights960(_spacesAvailable);
+            //_spacesAvailable
+            //generate queens
+			//_spacesAvailable = generateKingRookCombo(_spacesAvailable);
 
-			generateRestForChess960(_spacesAvailable);
+			//generateRestForChess960(_spacesAvailable);
 		}
 
-        private List<int> generateKingRookCombo(List<int> _spacesAvailable)
+        private List<int> generateKingRooks(List<int> _spacesAvailable)
         {
             Random rnd = new Random();
 
@@ -192,7 +195,48 @@ namespace Chess.Core
 			return _spacesAvailable;
         }
 
-        private void generateRestForChess960(List<int> _spacesAvailable)
+		private List<int> generateBishopsQueenKnights960(List<int> _spacesAvailable)
+        {
+			Random rnd = new Random();
+
+            int lightSpaceBishopSpace = rnd.Next(0, 4) * 2; // Light Spaces Range: (0 to 3) * 2 = {0, 2, 4, 6}
+            int darkSpaceBishopSpace = (rnd.Next(0, 4) * 2) + 1; // Dark Space Range: ((0 to 3) * 2) + 1 = {1, 3, 5, 7}
+
+			_spacesAvailable.Remove(lightSpaceBishopSpace);
+			_spacesAvailable.Remove(darkSpaceBishopSpace);
+
+			int randomSlot = rnd.Next(0, _spacesAvailable.Count);
+			int queenSpace = _spacesAvailable[randomSlot];
+			_spacesAvailable.Remove(queenSpace);
+
+			randomSlot = rnd.Next(0, _spacesAvailable.Count);
+			int firstKnighSpace = _spacesAvailable[randomSlot];
+			_spacesAvailable.Remove(firstKnighSpace);
+
+			randomSlot = rnd.Next(0, _spacesAvailable.Count);
+			int secondKnighSpace = _spacesAvailable[randomSlot];
+			_spacesAvailable.Remove(secondKnighSpace);
+
+			_tiles[0, lightSpaceBishopSpace].Piece = new Bishop('b', 0, lightSpaceBishopSpace); // adds dark space black bishop
+			_tiles[7, lightSpaceBishopSpace].Piece = new Bishop('w', 7, lightSpaceBishopSpace); // adds dark space white bishop
+
+			_tiles[0, darkSpaceBishopSpace].Piece = new Bishop('b', 0, darkSpaceBishopSpace); // adds dark space black bishop
+			_tiles[7, darkSpaceBishopSpace].Piece = new Bishop('w', 7, darkSpaceBishopSpace); // adds dark space white bishop
+
+			_tiles[0, queenSpace].Piece = new Queen('b', 0, queenSpace); // adds black queen
+			_tiles[7, queenSpace].Piece = new Queen('w', 7, queenSpace); // adds white queen
+
+			_tiles[0, firstKnighSpace].Piece = new Knight('b', 0, firstKnighSpace); // adds first black knight
+			_tiles[7, firstKnighSpace].Piece = new Knight('w', 7, firstKnighSpace); // adds first white knight
+
+			_tiles[0, secondKnighSpace].Piece = new Knight('b', 0, secondKnighSpace); // adds second black knight
+			_tiles[7, secondKnighSpace].Piece = new Knight('w', 7, secondKnighSpace); // adds second white knight
+
+			return _spacesAvailable;
+        }
+
+
+		private void generateRestFor960(List<int> _spacesAvailable)
         {
 			Random rnd = new Random();
 
