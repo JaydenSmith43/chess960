@@ -1,5 +1,7 @@
 ﻿using Chess.Core.Pieces;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Chess.Core
 {
@@ -148,9 +150,66 @@ namespace Chess.Core
 
 		private void GenerateChess960Pieces()
         {
-            // generate king
+			List<int> _spacesAvailable = new List<int>();
 
-            // 
+			for (int j = 0; j < 8; j++)
+            {
+                _spacesAvailable.Add(j);
+
+                _tiles[1, j].Piece = new Pawn('b', 1, j); // adds 8 player black pawns to 2nd row
+                _tiles[6, j].Piece = new Pawn('w', 6, j); // adds 8 white pawns to 7th row
+            }
+
+            _spacesAvailable = generateKingRookCombo(_spacesAvailable);
+
+			// player 1's backrow (I == 7)
+			//_tiles[i, j].Piece = new Rook('w', i, j); // adds both white rooks
+			//_tiles[i, j].Piece = new Knight('w', i, j); // adds both white knights
+			//_tiles[i, j].Piece = new Bishop('w', i, j); // adds both white bishops
+			//_tiles[i, j].Piece = new Queen('w', i, j); // adds white queen
+			//_tiles[i, j].Piece = new King('w', i, j); // adds white king
+
+			// player 2's backrow
+			//if (i == 0)
+			//{
+			//	if (j == 0 || j == 7)
+			//		_tiles[i, j].Piece = new Rook('b', i, j); // adds both black rooks
+			//	if (j == 1 || j == 6)
+			//		_tiles[i, j].Piece = new Knight('b', i, j); // adds both black knights
+			//	if (j == 2 || j == 5)
+			//		_tiles[i, j].Piece = new Bishop('b', i, j); // adds both black bishops
+			//	if (j == 3)
+			//		_tiles[i, j].Piece = new Queen('b', i, j); // adds black queen
+			//	if (j == 4)
+			//		_tiles[i, j].Piece = new King('b', i, j); // adds black king
+			//}
+
+			//_blackKingLocation = new BoardLocation(0, 4);
+			//_whiteKingLocation = new BoardLocation(7, 4);
+		}
+
+        private List<int> generateKingRookCombo(List<int> _spacesAvailable)
+        {
+            Random rnd = new Random();
+
+            int KingSpace = rnd.Next(1, 7); // between index spaces 1-6 to not place on edges
+			int leftRookSpace = rnd.Next(0, KingSpace); // Random space left of King
+			int rightRookSpace = rnd.Next(KingSpace + 1, 8); // Random space left of King
+
+			_tiles[0, KingSpace].Piece = new King('b', 0, KingSpace); // adds black king
+			_tiles[7, KingSpace].Piece = new King('w', 7, KingSpace); // adds white king
+
+			_tiles[0, leftRookSpace].Piece = new Rook('b', 0, leftRookSpace); // adds left black rook
+			_tiles[0, rightRookSpace].Piece = new Rook('b', 0, rightRookSpace); // adds right black rook
+
+			_tiles[7, leftRookSpace].Piece = new Rook('w', 7, leftRookSpace); // adds left white rook
+			_tiles[7, rightRookSpace].Piece = new Rook('w', 7, rightRookSpace); // adds right white rook
+
+			Console.WriteLine(KingSpace);
+			Console.WriteLine(leftRookSpace);
+			Console.WriteLine(rightRookSpace);
+
+			return _spacesAvailable;
         }
 
 

@@ -66,7 +66,7 @@ partial class FormLauncher
 		btnClassicChessPvP.Name = "btnClassicChessPvP";
 		btnClassicChessPvP.Size = new Size(176, 38);
 		btnClassicChessPvP.TabIndex = 1;
-		btnClassicChessPvP.Text = "Classic Chess PvP";
+		btnClassicChessPvP.Text = "Classic Chess (PvP)";
 		btnClassicChessPvP.UseVisualStyleBackColor = false;
 		btnClassicChessPvP.Click += btnClassicChess_Click;
 		// 
