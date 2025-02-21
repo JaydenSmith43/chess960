@@ -161,39 +161,23 @@ namespace Chess.Core
             }
 
 			_spacesAvailable = generateBishopsQueenKnights960(_spacesAvailable);
-            //_spacesAvailable
-            //generate queens
-			//_spacesAvailable = generateKingRookCombo(_spacesAvailable);
-
-			//generateRestForChess960(_spacesAvailable);
+            generateKingRooks960(_spacesAvailable);
 		}
 
-        private List<int> generateKingRooks(List<int> _spacesAvailable)
+        private void generateKingRooks960(List<int> _spacesAvailable)
         {
-            Random rnd = new Random();
+			_tiles[0, _spacesAvailable[0]].Piece = new Rook('b', 0, _spacesAvailable[0]); // adds left black rook
+			_tiles[7, _spacesAvailable[0]].Piece = new Rook('w', 7, _spacesAvailable[0]); // adds left white rook
 
-            int KingSpace = rnd.Next(1, 7); // between index spaces 1-6 to not place on edges
-			int leftRookSpace = rnd.Next(0, KingSpace); // Random space left of King
-			int rightRookSpace = rnd.Next(KingSpace + 1, 8); // Random space left of King
+			_tiles[0, _spacesAvailable[1]].Piece = new King('b', 0, _spacesAvailable[1]); // adds black king between rooks
+			_tiles[7, _spacesAvailable[1]].Piece = new King('w', 7, _spacesAvailable[1]); // adds white king between rooks
 
-			_tiles[0, KingSpace].Piece = new King('b', 0, KingSpace); // adds black king
-			_tiles[7, KingSpace].Piece = new King('w', 7, KingSpace); // adds white king
+			_blackKingLocation = new BoardLocation(0, _spacesAvailable[1]);
+			_whiteKingLocation = new BoardLocation(7, _spacesAvailable[1]);
 
-			_blackKingLocation = new BoardLocation(0, KingSpace);
-			_whiteKingLocation = new BoardLocation(7, KingSpace);
-
-			_tiles[0, leftRookSpace].Piece = new Rook('b', 0, leftRookSpace); // adds left black rook
-			_tiles[7, leftRookSpace].Piece = new Rook('w', 7, leftRookSpace); // adds left white rook
-
-			_tiles[0, rightRookSpace].Piece = new Rook('b', 0, rightRookSpace); // adds right black rook
-			_tiles[7, rightRookSpace].Piece = new Rook('w', 7, rightRookSpace); // adds right white rook
-
-			_spacesAvailable.Remove(KingSpace);
-			_spacesAvailable.Remove(leftRookSpace);
-			_spacesAvailable.Remove(rightRookSpace);
-
-			return _spacesAvailable;
-        }
+			_tiles[0, _spacesAvailable[2]].Piece = new Rook('b', 0, _spacesAvailable[2]); // adds right black rook
+			_tiles[7, _spacesAvailable[2]].Piece = new Rook('w', 7, _spacesAvailable[2]); // adds right white rook
+		}
 
 		private List<int> generateBishopsQueenKnights960(List<int> _spacesAvailable)
         {
@@ -202,7 +186,7 @@ namespace Chess.Core
             int lightSpaceBishopSpace = rnd.Next(0, 4) * 2; // Light Spaces Range: (0 to 3) * 2 = {0, 2, 4, 6}
             int darkSpaceBishopSpace = (rnd.Next(0, 4) * 2) + 1; // Dark Space Range: ((0 to 3) * 2) + 1 = {1, 3, 5, 7}
 
-			_spacesAvailable.Remove(lightSpaceBishopSpace);
+			_spacesAvailable.Remove(lightSpaceBishopSpace); // remove space from spacesAvailable
 			_spacesAvailable.Remove(darkSpaceBishopSpace);
 
 			int randomSlot = rnd.Next(0, _spacesAvailable.Count);
