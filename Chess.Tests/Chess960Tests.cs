@@ -10,7 +10,7 @@ namespace Chess.Tests
 		{
 			Board classicBoard = new Board(8, true); // true for default board
 
-			//check back board
+			//check classic board layout
 			Assert.True(classicBoard.GetTile(0, 0).Piece is Rook);
 			Assert.True(classicBoard.GetTile(0, 1).Piece is Knight);
 			Assert.True(classicBoard.GetTile(0, 2).Piece is Bishop);
@@ -27,7 +27,9 @@ namespace Chess.Tests
 
 			var chess960Board = new Board(8, true); // false for chess960 board
 
+			// check that board is different from classic board
 			bool differenceInBoards = false;
+
 			for (int i = 0; i < 8; i++)
 			{
 				if (classicBoard.GetTile(1, i).Piece != chess960Board.GetTile(1, i).Piece)
