@@ -13,73 +13,79 @@ namespace ChessClient;
 
 public partial class FormLauncher : Form
 {
-    public FormLauncher()
-    {
-        InitializeComponent();
-        this.Icon = new Icon("icon.ico");
-    }
+	public FormLauncher()
+	{
+		InitializeComponent();
+		this.Icon = new Icon("icon.ico");
+	}
 
-    private void btnPlayerVsPlayer_Click(object sender, EventArgs e)
-    {
-        FormPlayerVsPlayer frmPvP = new FormPlayerVsPlayer();
-        frmPvP.Show();
-    }
+	private void btnClassicChess_Click(object sender, EventArgs e)
+	{
+		FormPlayerVsPlayer frmPvP = new FormPlayerVsPlayer(true);
+		frmPvP.Show();
+	}
 
-    private void btnPlayerVsAI_Click(object sender, EventArgs e)
-    {
-        MessageBox.Show("Not implemented");
-    }
+	private void btnChess960_Click(object sender, EventArgs e)
+	{
+		FormPlayerVsPlayer frmPvP = new FormPlayerVsPlayer(false);
+		frmPvP.Show();
+	}
 
-    private void btnAIVsAI_Click(object sender, EventArgs e)
-    {
-        FormAIvsAI frmAi = new FormAIvsAI();
-        frmAi.Show();
-    }
+	private void btnPlayerVsAI_Click(object sender, EventArgs e)
+	{
+		MessageBox.Show("Not implemented");
+	}
 
-    private void btnJoinServer_Click(object sender, EventArgs e)
-    {
-        using (FormJoinServer frmJoinServer = new FormJoinServer())
-        {
-            frmJoinServer.ShowDialog();
-            if (frmJoinServer.DialogResult == DialogResult.OK)
-            {
+	private void btnAIVsAI_Click(object sender, EventArgs e)
+	{
+		FormAIvsAI frmAi = new FormAIvsAI();
+		frmAi.Show();
+	}
 
-                FormUDPClient frmClient = new FormUDPClient(frmJoinServer.Username,
-                                                frmJoinServer.EndpointAddress.Address.ToString(),
-                                                frmJoinServer.EndpointAddress.Port);
-                frmClient.Show();
-            }
-        }
-    }
+	private void btnJoinServer_Click(object sender, EventArgs e)
+	{
+		using (FormJoinServer frmJoinServer = new FormJoinServer())
+		{
+			frmJoinServer.ShowDialog();
+			if (frmJoinServer.DialogResult == DialogResult.OK)
+			{
 
-    private async void btnHostServer_Click(object sender, EventArgs e)
-    {
-        using (FormHostServer frmHostServer = new FormHostServer())
-        {
-            frmHostServer.ShowDialog();
+				FormUDPClient frmClient = new FormUDPClient(frmJoinServer.Username,
+												frmJoinServer.EndpointAddress.Address.ToString(),
+												frmJoinServer.EndpointAddress.Port);
+				frmClient.Show();
+			}
+		}
+	}
 
-            if (frmHostServer.DialogResult == DialogResult.OK)
-            {
-                var ipAddress = frmHostServer.EndpointAddress.Address.ToString();
-                var port = frmHostServer.EndpointAddress.Port;
-                var serverExecutablePath = Path.Combine(Environment.CurrentDirectory, "ChessServer.exe");
+	private async void btnHostServer_Click(object sender, EventArgs e)
+	{
+		using (FormHostServer frmHostServer = new FormHostServer())
+		{
+			frmHostServer.ShowDialog();
 
-                var p = new System.Diagnostics.Process();
-                p.StartInfo.FileName = serverExecutablePath;
-                p.StartInfo.Arguments = $"{port}";
-                p.StartInfo.UseShellExecute = true;
-                p.StartInfo.CreateNoWindow = false;
-                p.Start();
+			if (frmHostServer.DialogResult == DialogResult.OK)
+			{
+				var ipAddress = frmHostServer.EndpointAddress.Address.ToString();
+				var port = frmHostServer.EndpointAddress.Port;
+				var serverExecutablePath = Path.Combine(Environment.CurrentDirectory, "ChessServer.exe");
 
-                await Task.Delay(1000);
+				var p = new System.Diagnostics.Process();
+				p.StartInfo.FileName = serverExecutablePath;
+				p.StartInfo.Arguments = $"{port}";
+				p.StartInfo.UseShellExecute = true;
+				p.StartInfo.CreateNoWindow = false;
+				p.Start();
 
-                FormUDPClient frmClient = new FormUDPClient(frmHostServer.Username, ipAddress, port);
-                frmClient.Show();
-            }
+				await Task.Delay(1000);
 
-        }
+				FormUDPClient frmClient = new FormUDPClient(frmHostServer.Username, ipAddress, port);
+				frmClient.Show();
+			}
+
+		}
 
 
 
-    }
+	}
 }

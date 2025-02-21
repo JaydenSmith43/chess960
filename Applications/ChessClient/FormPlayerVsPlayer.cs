@@ -19,14 +19,14 @@ public partial class FormPlayerVsPlayer : Form
     private Button[,] _buttonArray = new Button[BOARDSIZE, BOARDSIZE];
     private Board _board;
 
-    public FormPlayerVsPlayer()
+    public FormPlayerVsPlayer(bool isClassic)
     {
         InitializeComponent();
         this.Icon = new Icon("icon.ico");
         this.StartPosition = FormStartPosition.CenterScreen;
         this.MinimumSize = this.Size;
 
-        _board = new Board(BOARDSIZE, true);
+        _board = new Board(BOARDSIZE, isClassic);
         //_board.AddPiece<King>(2, 4, 'b');
         //_board.AddPiece<Queen>(3, 3, 'b');
         //_board.AddPiece<King>(7, 4, 'w');

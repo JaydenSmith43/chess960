@@ -67,6 +67,10 @@ namespace Chess.Core
                 _blackKingLocation = new BoardLocation(0, 4);
                 _whiteKingLocation = new BoardLocation(7, 4);
             }
+            else
+            {
+                GenerateChess960Pieces();
+			}
         }
          
         // overload to allow custom board
@@ -142,7 +146,15 @@ namespace Chess.Core
             }
         }
 
-        private void UpdateKingPosition(char color, int row, int col)
+		private void GenerateChess960Pieces()
+        {
+            // generate king
+
+            // 
+        }
+
+
+		private void UpdateKingPosition(char color, int row, int col)
         {
             if (color == 'w')
                 _whiteKingLocation = new BoardLocation(row, col);
