@@ -10,7 +10,7 @@ namespace Chess.Tests
         [Fact]
         public void WhitePawnCanMoveForward()
         {
-            var board = new Board(8, false);
+            var board = new Board(8, true);
             var whitePawn = board.AddPiece<Pawn>(1, 1, 'w');
 
             // move up 1 tile

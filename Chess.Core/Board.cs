@@ -183,11 +183,11 @@ namespace Chess.Core
         {
 			Random rnd = new Random();
 
-            int lightSpaceBishopSpace = rnd.Next(0, 4) * 2; // Light Spaces Range: (0 to 3) * 2 = {0, 2, 4, 6}
-            int darkSpaceBishopSpace = (rnd.Next(0, 4) * 2) + 1; // Dark Space Range: ((0 to 3) * 2) + 1 = {1, 3, 5, 7}
+            int darkSpaceBishopSpacee = rnd.Next(0, 4) * 2; // Dark Spaces Range: (0 to 3) * 2 = {0, 2, 4, 6}
+            int lightSpaceBishopSpaceeee = (rnd.Next(0, 4) * 2) + 1; // Light Space Range: ((0 to 3) * 2) + 1 = {1, 3, 5, 7}
 
-			_spacesAvailable.Remove(lightSpaceBishopSpace); // remove space from spacesAvailable
-			_spacesAvailable.Remove(darkSpaceBishopSpace);
+			_spacesAvailable.Remove(darkSpaceBishopSpacee); // remove space from spacesAvailable
+			_spacesAvailable.Remove(lightSpaceBishopSpaceeee);
 
 			int randomSlot = rnd.Next(0, _spacesAvailable.Count);
 			int queenSpace = _spacesAvailable[randomSlot];
@@ -201,11 +201,11 @@ namespace Chess.Core
 			int secondKnighSpace = _spacesAvailable[randomSlot];
 			_spacesAvailable.Remove(secondKnighSpace);
 
-			_tiles[0, lightSpaceBishopSpace].Piece = new Bishop('b', 0, lightSpaceBishopSpace); // adds dark space black bishop
-			_tiles[7, lightSpaceBishopSpace].Piece = new Bishop('w', 7, lightSpaceBishopSpace); // adds dark space white bishop
+			_tiles[0, darkSpaceBishopSpacee].Piece = new Bishop('b', 0, darkSpaceBishopSpacee); // adds dark space black bishop
+			_tiles[7, darkSpaceBishopSpacee].Piece = new Bishop('w', 7, darkSpaceBishopSpacee); // adds dark space white bishop
 
-			_tiles[0, darkSpaceBishopSpace].Piece = new Bishop('b', 0, darkSpaceBishopSpace); // adds dark space black bishop
-			_tiles[7, darkSpaceBishopSpace].Piece = new Bishop('w', 7, darkSpaceBishopSpace); // adds dark space white bishop
+			_tiles[0, lightSpaceBishopSpaceeee].Piece = new Bishop('b', 0, lightSpaceBishopSpaceeee); // adds dark space black bishop
+			_tiles[7, lightSpaceBishopSpaceeee].Piece = new Bishop('w', 7, lightSpaceBishopSpaceeee); // adds dark space white bishop
 
 			_tiles[0, queenSpace].Piece = new Queen('b', 0, queenSpace); // adds black queen
 			_tiles[7, queenSpace].Piece = new Queen('w', 7, queenSpace); // adds white queen
@@ -218,48 +218,6 @@ namespace Chess.Core
 
 			return _spacesAvailable;
         }
-
-
-		private void generateRestFor960(List<int> _spacesAvailable)
-        {
-			Random rnd = new Random();
-
-            int randomSlot = rnd.Next(0, _spacesAvailable.Count); // random index from remaining spaces
-            int QueenSpace = _spacesAvailable[randomSlot]; // get random space by using random index on list of spacesAvailable to obtain value
-            _spacesAvailable.Remove(QueenSpace); // remove space from list of spacesAvailable
-
-            randomSlot = rnd.Next(0, _spacesAvailable.Count);
-			int firstBishopSpace = _spacesAvailable[randomSlot];
-            _spacesAvailable.Remove(firstBishopSpace);
-
-			randomSlot = rnd.Next(0, _spacesAvailable.Count);
-			int secondBishopSpace = _spacesAvailable[randomSlot];
-			_spacesAvailable.Remove(secondBishopSpace);
-
-			randomSlot = rnd.Next(0, _spacesAvailable.Count);
-			int firstKnighSpace = _spacesAvailable[randomSlot];
-			_spacesAvailable.Remove(firstKnighSpace);
-
-			randomSlot = rnd.Next(0, _spacesAvailable.Count);
-			int secondKnighSpace = _spacesAvailable[randomSlot];
-			_spacesAvailable.Remove(secondKnighSpace);
-
-
-			_tiles[0, QueenSpace].Piece = new Queen('b', 0, QueenSpace); // adds black queen
-			_tiles[7, QueenSpace].Piece = new Queen('w', 0, QueenSpace); // adds white queen
-
-			_tiles[0, firstBishopSpace].Piece = new Bishop('b', 0, firstBishopSpace); // adds first black bishop
-			_tiles[7, firstBishopSpace].Piece = new Bishop('w', 7, firstBishopSpace); // adds first white bishop
-
-			_tiles[0, secondBishopSpace].Piece = new Bishop('b', 0, secondBishopSpace); // adds second black bishop
-			_tiles[7, secondBishopSpace].Piece = new Bishop('w', 7, secondBishopSpace); // adds second white bishop
-
-			_tiles[0, firstKnighSpace].Piece = new Knight('b', 0, firstKnighSpace); // adds second black knight
-			_tiles[7, firstKnighSpace].Piece = new Knight('w', 7, firstKnighSpace); // adds second white knight
-
-			_tiles[0, secondKnighSpace].Piece = new Knight('b', 0, secondKnighSpace); // adds second black knight
-			_tiles[7, secondKnighSpace].Piece = new Knight('w', 7, secondKnighSpace); // adds second white knight
-		}
 
 
 		private void UpdateKingPosition(char color, int row, int col)
